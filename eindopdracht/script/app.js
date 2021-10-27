@@ -109,12 +109,65 @@ function getHistoricalData(coinlist){
     });
 }
 
+function convertToInternationalCurrencySystem (labelValue) {
+
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e+9
+
+    ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + "B"
+    // Six Zeroes for Millions 
+    : Math.abs(Number(labelValue)) >= 1.0e+6
+
+    ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + "M"
+    // Three Zeroes for Thousands
+    : Math.abs(Number(labelValue)) >= 1.0e+3
+
+    ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + "K"
+
+    : Math.abs(Number(labelValue));
+
+}
+
+function percIncrease(a, b) {
+    let percent;
+    if(b !== 0) {
+        if(a !== 0) {
+            percent = (b - a) / a * 100;
+        } else {
+            percent = b * 100;
+        }
+    } else {
+        percent = - a * 100;            
+    }       
+    return percent.toFixed(4);
+}
+
 async function getCurrentData(coinlist){
     coinlist.forEach(element => {
         fetch('https://api.kraken.com/0/public/Ticker?pair=' + element)
         .then(response => response.json())
         .then(data => {
             price = data.result[element].c[0];
+            let vol = data.result[element].v[1];
+            let opening = data.result[element].o;
+            let change = (price - opening);
+            if(change > 0){
+                change == "+" + change
+            }
+
+            let colloring
+            if(change >= 0){
+                colloring = "#70E000";
+            }
+            else if(change < 0){
+                colloring = "red";
+            }
+
+            let changeperc = percIncrease(opening, price);
+
+            
+
+
             console.log("price " + element + ": " + price);
 
             if(lastprice1 != 0){
@@ -136,7 +189,7 @@ async function getCurrentData(coinlist){
                         <h1 class="c-card__title">
                             ${element}
                         </h1>
-                        <h3 class="c-card__price">
+                        <h3 class="c-card__price" style="color:${colloring}">
                             ${price}
                         </h3>
                     </div>
@@ -145,13 +198,13 @@ async function getCurrentData(coinlist){
                             Cardano
                         </h1>
                         <h3 class="c-card__change">
-                            vol: 152M
+                            vol: ${convertToInternationalCurrencySystem (vol)}
                         </h3>
-                        <h3 class="c-card__change">
-                            +0.2565
+                        <h3 class="c-card__change" style="color:${colloring}">
+                            ${change.toFixed(6)}
                         </h3>
-                        <h3 class="c-card__change">
-                            +5.6%
+                        <h3 class="c-card__change" style="color:${colloring}">
+                            ${changeperc}%
                         </h3>
                     </div>
                     <div style="position:absolute; left: -10px; bottom: -15px; width: 104%;" id="chart" class="js-chart-${element}"></div>
@@ -165,7 +218,7 @@ async function getCurrentData(coinlist){
                         <h1 class="c-card__title">
                             ${element}
                         </h1>
-                        <h3 class="c-card__price">
+                        <h3 class="c-card__price" style="color:${colloring}">
                             ${price}
                         </h3>
                     </div>
@@ -174,13 +227,13 @@ async function getCurrentData(coinlist){
                             Cardano
                         </h1>
                         <h3 class="c-card__change">
-                            vol: 152M
+                            vol: ${convertToInternationalCurrencySystem (vol)}
                         </h3>
-                        <h3 class="c-card__change">
-                            +0.2565
+                        <h3 class="c-card__change" style="color:${colloring}">
+                            ${change.toFixed(6)}
                         </h3>
-                        <h3 class="c-card__change">
-                            +5.6%
+                        <h3 class="c-card__change" style="color:${colloring}">
+                            ${changeperc}%
                         </h3>
                     </div>
                     <div style="position:absolute; left: -10px; bottom: -15px; width: 104%;" id="chart" class="js-chart-${element}"></div>

@@ -278,7 +278,7 @@ input::placeholder {
     padding: 20px;
     box-shadow: 2px 2px 10px #04193f;
     height: 352px;
-    width: 504px;
+    width: auto;
     margin: auto;
 }
 
