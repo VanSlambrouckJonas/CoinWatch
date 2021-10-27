@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="127.343" height="123.162" viewBox="0 0 127.343 123.162">
+  <g id="Group_8" data-name="Group 8" transform="translate(-178.268 -210.578)">
+    <text id="W" transform="translate(220.611 304.711)" fill="#1a1818" stroke="#f77e0b" stroke-miterlimit="10" stroke-width="4" font-size="80" font-family="LeelawadeeUI-Bold, Leelawadee UI" font-weight="700"><tspan x="0" y="0">W</tspan></text>
+    <text id="C" transform="matrix(0.981, -0.196, 0.196, 0.981, 199.843, 309.421)" fill="#1a1818" stroke="#f77e0b" stroke-miterlimit="10" stroke-width="4" font-size="80" font-family="LeelawadeeUI-Bold, Leelawadee UI" font-weight="700"><tspan x="0" y="0">C</tspan></text>
+    <line id="Line_1" data-name="Line 1" x2="7.355" transform="translate(227.69 305.207)" fill="none" stroke="#f77e0b" stroke-miterlimit="10" stroke-width="3"/>
+    <line id="Line_2" data-name="Line 2" x1="4.548" y1="15.871" transform="translate(227.516 249.581)" fill="none" stroke="#1a1818" stroke-miterlimit="10" stroke-width="8"/>
+    <line id="Line_3" data-name="Line 3" x1="3.387" y1="16.306" transform="translate(229.065 249.048)" fill="none" stroke="#1a1818" stroke-miterlimit="10" stroke-width="8"/>
+  </g>
+</svg>
