@@ -153,8 +153,6 @@ function getCurrentData(coinlist){
                 element = "X" + element.slice(0, 3) + "Z" + element.slice(3, 6);
                 cryptolist.splice(cryptolist.length - 1, 1, element);
             }
-            console.log("list: " + cryptolist)
-            console.log("element: " + element);
             price = data.result[element].c[0];
             let vol = data.result[element].v[1];
             let opening = data.result[element].o;
@@ -172,10 +170,6 @@ function getCurrentData(coinlist){
             }
 
             let changeperc = percIncrease(opening, price);
-
-            
-
-
             console.log("price " + element + ": " + price);
 
             if(lastprice1 != 0){
@@ -189,9 +183,41 @@ function getCurrentData(coinlist){
             }
             lastprice1 = price;
             
-            html_grid.innerHTML += `
+            try {
+                console.log("element: " + element);
+                html_grid.innerHTML += `
                 <div class="o-grid-item">
                     <img class="c-logo" src='svg/${element}.svg' alt="some file"  height='100'width='100' style="color:green;"/>
+                    <div style="text-align: right; float: right; margin: 0 16px 0 0;">
+                        <h1 class="c-card__title">
+                            ${element}
+                        </h1>
+                        <h3 class="c-card__price" style="color:${colloring}">
+                            ${price}
+                        </h3>
+                    </div>
+                    <div style="text-align: right; float: left; margin: 0 0 0 0;">
+                        <h1 class="c-card__fullname">
+                            ${element.slice(0, element.length-3)}
+                        </h1>
+                        <h3 class="c-card__change" style="color:${colloring}">
+                            vol: ${convertToInternationalCurrencySystem (vol)}
+                        </h3>
+                        <h3 class="c-card__change" style="color:${colloring}">
+                            ${change.toFixed(6)}
+                        </h3>
+                        <h3 class="c-card__change" style="color:${colloring}">
+                            ${changeperc}%
+                        </h3>
+                    </div>
+                    <div style="position:absolute; left: -10px; bottom: -15px; width: 104%;" id="chart" class="js-chart-${element}"></div>
+                </div>`
+            }
+            catch(err) {
+                console.log("no svg found");
+                html_grid.innerHTML += `
+                <div class="o-grid-item">
+                    <img class="c-logo" src='svg/ADAUSD.svg' alt="some file"  height='100'width='100' style="color:green;"/>
                     <div style="text-align: right; float: right; margin: 0 16px 0 0;">
                         <h1 class="c-card__title">
                             ${element}
@@ -216,6 +242,7 @@ function getCurrentData(coinlist){
                     </div>
                     <div style="position:absolute; left: -10px; bottom: -15px; width: 104%;" id="chart" class="js-chart-${element}"></div>
                 </div>`
+            }
         });
     });
     
@@ -242,7 +269,7 @@ function button_listener(){
             var new_asset = [asset + "USD"];
             getCurrentData(new_asset);
             var kraken_asset = [cryptolist[cryptolist.length - 1]];
-            setTimeout(() => {button_listener(); }, 100);
+            setTimeout(() => {button_listener(); }, 500);
             setTimeout(() => {getHistoricalData(kraken_asset); }, 1000);
         }
     });
@@ -252,8 +279,8 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Script loaded!');
     html_grid = document.querySelector('.js-grid');
     html_grid.innerHTML += `
-                <div class="o-grid-item o-grid-bigitem js-add-asset" style="display: flex;">
-                    <svg class="c-add-asset" xmlns="http://www.w3.org/2000/svg" width="152" height="152" viewBox="0 0 152 152">
+                <div class="o-grid-item js-add-asset" style="display: flex;">
+                    <svg class="c-add-asset o-grow" xmlns="http://www.w3.org/2000/svg" width="152" height="152" viewBox="0 0 152 152">
                         <g id="Group_18" data-name="Group 18" transform="translate(-8 -10)">
                         <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(8 10)" fill="none" stroke="#223154" stroke-width="15">
                             <circle cx="76" cy="76" r="76" stroke="none"/>
@@ -272,8 +299,8 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(function(){ 
         html_grid.innerHTML = ``
         html_grid.innerHTML += `
-                <div class="o-grid-item o-grid-bigitem js-add-asset" style="display: flex;">
-                    <svg class="c-add-asset" xmlns="http://www.w3.org/2000/svg" width="152" height="152" viewBox="0 0 152 152">
+                <div class="o-grid-item js-add-asset" style="display: flex;">
+                    <svg class="c-add-asset o-grow" xmlns="http://www.w3.org/2000/svg" width="152" height="152" viewBox="0 0 152 152">
                         <g id="Group_18" data-name="Group 18" transform="translate(-8 -10)">
                         <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(8 10)" fill="none" stroke="#223154" stroke-width="15">
                             <circle cx="76" cy="76" r="76" stroke="none"/>

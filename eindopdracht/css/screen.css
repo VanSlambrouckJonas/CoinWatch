@@ -581,6 +581,17 @@ input::placeholder {
 #COMPONENTS
 \*------------------------------------*/
 
+
+.o-grow { 
+    transition: all .2s ease-in-out; 
+}
+
+.o-grow:hover { 
+    transform: scale(1.2);
+    fill: #000;
+}
+
+
 .c-header-logo{
     display: block;
     margin: -3px auto 3px auto;
