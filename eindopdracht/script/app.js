@@ -2,6 +2,7 @@
 
 let htmlada, htmlbtc, htmlxrp, htmlsol, htmleth;
 let htmlchart_ada, html_grid;
+let html_addbutton;
 var price, lastprice1 = 0, lastprice2 = 0, lastprice3 = 0, lastprice4 = 0, lastprice5 = 0;
 var cryptolist = ["ADAUSD", "XXBTZUSD", "SOLUSD", "XETHZUSD", "XXRPZUSD", "USDTZUSD", "DOTUSD", "XDGUSD", "UNIUSD", "LINKUSD"];
 let stat = "";
@@ -87,6 +88,7 @@ function drawChart(labels, data, classchart) {
 const showData = function(data, coin){
     let timestamp = [];
     let historicalData = [];
+    console.log("coin: " + coin);
     for (const prices of data.result[coin]){
         timestamp.push(prices[0]);
         if(prices[5] != 0){
@@ -142,11 +144,17 @@ function percIncrease(a, b) {
     return percent.toFixed(4);
 }
 
-async function getCurrentData(coinlist){
+function getCurrentData(coinlist){
     coinlist.forEach(element => {
         fetch('https://api.kraken.com/0/public/Ticker?pair=' + element)
         .then(response => response.json())
         .then(data => {
+            if(Object.keys(data.result)[0] != element){
+                element = "X" + element.slice(0, 3) + "Z" + element.slice(3, 6);
+                cryptolist.splice(cryptolist.length - 1, 1, element);
+            }
+            console.log("list: " + cryptolist)
+            console.log("element: " + element);
             price = data.result[element].c[0];
             let vol = data.result[element].v[1];
             let opening = data.result[element].o;
@@ -181,37 +189,7 @@ async function getCurrentData(coinlist){
             }
             lastprice1 = price;
             
-            if(element == "ADAUSD"){
-                html_grid.innerHTML += `
-                <div class="o-grid-item o-grid-bigitem">
-                    <img class="c-logo" src='svg/${element}.svg' alt="some file"  height='100'width='100' style="color:green;"/>
-                    <div style="text-align: right; float: right; margin: 0 16px 0 0;">
-                        <h1 class="c-card__title">
-                            ${element}
-                        </h1>
-                        <h3 class="c-card__price" style="color:${colloring}">
-                            ${price}
-                        </h3>
-                    </div>
-                    <div style="text-align: right; float: left; margin: 0 0 0 0;">
-                        <h1 class="c-card__fullname">
-                            Cardano
-                        </h1>
-                        <h3 class="c-card__change">
-                            vol: ${convertToInternationalCurrencySystem (vol)}
-                        </h3>
-                        <h3 class="c-card__change" style="color:${colloring}">
-                            ${change.toFixed(6)}
-                        </h3>
-                        <h3 class="c-card__change" style="color:${colloring}">
-                            ${changeperc}%
-                        </h3>
-                    </div>
-                    <div style="position:absolute; left: -10px; bottom: -15px; width: 104%;" id="chart" class="js-chart-${element}"></div>
-                </div>`
-            }
-            else{
-                html_grid.innerHTML += `
+            html_grid.innerHTML += `
                 <div class="o-grid-item">
                     <img class="c-logo" src='svg/${element}.svg' alt="some file"  height='100'width='100' style="color:green;"/>
                     <div style="text-align: right; float: right; margin: 0 16px 0 0;">
@@ -226,7 +204,7 @@ async function getCurrentData(coinlist){
                         <h1 class="c-card__fullname">
                             Cardano
                         </h1>
-                        <h3 class="c-card__change">
+                        <h3 class="c-card__change" style="color:${colloring}">
                             vol: ${convertToInternationalCurrencySystem (vol)}
                         </h3>
                         <h3 class="c-card__change" style="color:${colloring}">
@@ -238,20 +216,78 @@ async function getCurrentData(coinlist){
                     </div>
                     <div style="position:absolute; left: -10px; bottom: -15px; width: 104%;" id="chart" class="js-chart-${element}"></div>
                 </div>`
-            }
-            
         });
-        stat = "done"
     });
     
 
     console.log("done loading data, now waiting 5 sec for reload!")
-    return("done");
+    stat = "done";
 }
 
-document.addEventListener('DOMContentLoaded',async function () {
+function button_listener(){
+    html_addbutton = document.querySelector('.js-add-asset');
+    let asset;
+    html_addbutton.addEventListener("click", function(){
+        asset = prompt("Please enter the ticker symbol of your choice:", "LTC");
+        if(asset == null){
+            console.log("retuned null");
+            window.alert("sometext");
+        }
+        else if(cryptolist.indexOf(asset + "USD") !== -1){
+            window.alert("This ticker symbol already is on this page!");
+        }
+        else{
+            console.log("asset: " + asset);
+            cryptolist.push(asset + "USD");
+            var new_asset = [asset + "USD"];
+            getCurrentData(new_asset);
+            var kraken_asset = [cryptolist[cryptolist.length - 1]];
+            setTimeout(() => {button_listener(); }, 100);
+            setTimeout(() => {getHistoricalData(kraken_asset); }, 1000);
+        }
+    });
+} 
+
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Script loaded!');
     html_grid = document.querySelector('.js-grid');
+    html_grid.innerHTML += `
+                <div class="o-grid-item o-grid-bigitem js-add-asset" style="display: flex;">
+                    <svg class="c-add-asset" xmlns="http://www.w3.org/2000/svg" width="152" height="152" viewBox="0 0 152 152">
+                        <g id="Group_18" data-name="Group 18" transform="translate(-8 -10)">
+                        <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(8 10)" fill="none" stroke="#223154" stroke-width="15">
+                            <circle cx="76" cy="76" r="76" stroke="none"/>
+                            <circle cx="76" cy="76" r="68.5" fill="none"/>
+                        </g>
+                        <g id="Group_19" data-name="Group 19" transform="translate(76.244 76.822)">
+                            <line id="Line_7" data-name="Line 7" y2="91" transform="translate(7.756 -35.822)" fill="none" stroke="#223154" stroke-linecap="round" stroke-width="15"/>
+                            <line id="Line_8" data-name="Line 8" x2="92" transform="translate(-38.244 9.178)" fill="none" stroke="#223154" stroke-linecap="round" stroke-width="15"/>
+                        </g>
+                        </g>
+                    </svg>                  
+                </div>`;
+    setTimeout(() => {button_listener(); }, 500);
     getCurrentData(cryptolist);
     setTimeout(() => {getHistoricalData(cryptolist); }, 1000);
+    setInterval(function(){ 
+        html_grid.innerHTML = ``
+        html_grid.innerHTML += `
+                <div class="o-grid-item o-grid-bigitem js-add-asset" style="display: flex;">
+                    <svg class="c-add-asset" xmlns="http://www.w3.org/2000/svg" width="152" height="152" viewBox="0 0 152 152">
+                        <g id="Group_18" data-name="Group 18" transform="translate(-8 -10)">
+                        <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(8 10)" fill="none" stroke="#223154" stroke-width="15">
+                            <circle cx="76" cy="76" r="76" stroke="none"/>
+                            <circle cx="76" cy="76" r="68.5" fill="none"/>
+                        </g>
+                        <g id="Group_19" data-name="Group 19" transform="translate(76.244 76.822)">
+                            <line id="Line_7" data-name="Line 7" y2="91" transform="translate(7.756 -35.822)" fill="none" stroke="#223154" stroke-linecap="round" stroke-width="15"/>
+                            <line id="Line_8" data-name="Line 8" x2="92" transform="translate(-38.244 9.178)" fill="none" stroke="#223154" stroke-linecap="round" stroke-width="15"/>
+                        </g>
+                        </g>
+                    </svg>                  
+                </div>`;
+    setTimeout(() => {button_listener(); }, 500);
+    getCurrentData(cryptolist);
+    setTimeout(() => {getHistoricalData(cryptolist); }, 1000);
+    }, 30000);
 });
