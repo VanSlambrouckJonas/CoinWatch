@@ -24,8 +24,18 @@
     --global-color-alpha: #3385FF;
     --global-color-alpha-dark: #2E77E6;
     --global-color-alpha-x-dark: #1B4186;
-    --global-color-alpha-transparent: #3385ffbf;
-    --global-color-alpha-x-transparent: #3385ff4d;
+    --global-color-alpha-xx-dark: #04193f;
+
+    --global-color-accent: #F77E0B;
+    --global-color-positive: #70E000;
+
+    --global-color-background: rgb(34,49,84);
+    --global-color-background-transparent: var(--global-color-background) 50%;
+    --global-color-background-x-transparent: rgba(247,126,11,1) 100%;
+
+    --global-color-beta: rgb(5,32,82);
+    --global-color-beta-transparent: var(--global-color-beta) 0%;
+    --global-color-beta-x-transparent: rgba(0,38,138,1) 100%;
 
     --global-color-neutral-xxxx-light: #F5F6FA;
     --global-color-neutral-xxx-light: #E2E3E7;
@@ -38,10 +48,6 @@
     --global-color-neutral-xx-dark: #4b4c60;
     --global-color-neutral-xxx-dark: #35374d;
     --global-color-neutral-xxxx-dark: #20223a;
-
-    --global-color-error: red;
-    --global-input-error-borderColor: red;
-
 
     /* global page settings */
     --global-html-color: var(--global-color-neutral-xxxx-dark);
@@ -56,7 +62,7 @@
     --global-transitionTiming-alpha: .1s ease-out;
 
     /* Baseline settings */
-    --global-baseline: 8px;         
+    --global-baseline: 0.5rem;         
     --global-whitespace: calc(var(--global-baseline) * 3); /* = 24px */
 
     --global-whitespace-xs: calc(var(--global-baseline) / 2); /* = 4px */
@@ -65,16 +71,6 @@
     --global-whitespace-lg: calc(var(--global-baseline) * 4); /*  = 32px */
     --global-whitespace-xl: calc(var(--global-whitespace) * 2); /*  = 48px */
     --global-whitespace-xxl: calc(var(--global-whitespace) * 3); /*  = 72px */
-
-    /* forms */
-    --global-placeholder-color: var(--global-color-neutral-x-light);
-    --global-input-backgroundColor: White;
-    --global-input-color: var(--global-color-neutral-xxxx-dark);
-    --global-input-borderColor: var(--global-color-neutral-xxx-light);
-    --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
-    --global-input-focus-borderColor: var(--global-color-alpha);
-    --global-input-focus-boxShadowColor: var(--global-color-alpha-x-transparent);
-    --global-input-focus-boxShadow: 0 0 0 3px var(--global-input-focus-boxShadowColor);
 }
 
 /*------------------------------------*\
@@ -89,25 +85,25 @@
 
 body::-webkit-scrollbar {
     display: none;
-    height:max-content;
+    height: max-content;
     height: 100vh;
-    min-height:100%;
+    min-height: 100%;
 }
 
 html {
-    background: rgb(34,49,84);
-    background: linear-gradient(180deg, rgba(34,49,84,1) 50%, rgba(247,126,11,1) 100%);
+    background: var(--global-color-background);
+    background: linear-gradient(180deg, var(--global-color-background-transparent), var(--global-color-background-x-transparent));
     background-repeat: no-repeat;
-    color: #caccd4;
-    font-size: 16px;
-    line-height: 1.5;
+    color: var(--global-color-neutral-xxxx-light);
+    font-size: 1rem;
+    line-height: 1.5rem;
     font-family: "Inter Web", Helvetica, arial, sans-serif;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding: 0 0 32px 0;
     overflow: auto;
-    min-height:100%;
+    min-height: 100%;
 }
 
 *,
@@ -157,41 +153,41 @@ img {
 */
 
 header{
-    background: rgba(34,49,84,1);
+    background: var(--global-color-background);
     height: 62px;
 }
 
 h1,
 h2,
 h3 {
-    font-weight: 600;
+    font-weight: 400;
 }
 
 h1 {
-    font-size: 36px;
-    line-height: 48px;
+    font-size: 2.25rem;
+    line-height: 3rem;
     margin: 0 0 0 0;
-    color: #F77E0B;
+    color: var(--global-color-accent);
 }
 
 h2 {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 2rem;
+    line-height: 2.5rem;
     margin: 0 0 var(--global-whitespace);
 }
 
 h3 {
-    font-size: 26px;
-    line-height: 32px;
+    font-size: 1.625rem;
+    line-height: 2rem;
     margin: 0 0 var(--global-whitespace);
 }
 
 h4,
 h5,
 h6 {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
-    line-height: 24px;
+    line-height: 1.5rem;
     margin: 0 0 var(--global-whitespace);
 }
 
@@ -217,8 +213,8 @@ li ol {
 
 blockquote {
     font-style: normal;
-    font-size: 23px;
-    line-height: 32px;
+    font-size: 1.438rem;
+    line-height: 2rem;
     margin: 0 0 var(--global-whitespace);
 }
 
@@ -229,8 +225,8 @@ blockquote * {
 
 figcaption {
     font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 0.75rem;
+    line-height: 1rem;
     margin-top: var(--global-whitespace-sm);
 }
 
@@ -268,10 +264,6 @@ select {
     width: 100%;
 }
 
-input::placeholder {
-    color: var(--global-placeholder-color);
-}
-
 /*------------------------------------*\
 #OBJECTS
 \*------------------------------------*/
@@ -284,12 +276,11 @@ input::placeholder {
 }
 
 .o-grid-item{
-    background: rgb(5,32,82);
-    background: linear-gradient(45deg, rgba(5,32,82,1) 0%, rgba(0,38,138,1) 100%);
-    color: #fff;
+    background: var(--global-color-beta);
+    background: linear-gradient(45deg, var(--global-color-beta-transparent), var(--global-color-beta-x-transparent));
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 2px 2px 10px #04193f;
+    box-shadow: 2px 2px 10px var(-global-color-alpha-xx-dark);
     height: 515px;
     width: 80%;
     margin: auto;
@@ -372,24 +363,6 @@ input::placeholder {
         padding-top: 96px;
         padding-bottom: var(--global-whitespace-xxl);
     }
-}
-
-/*
-    Objects: Container
-    ---
-    Creates a horizontal container that sets de global max-width
-*/
-
-.o-container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 79.5em; /* 79.5 * 16px = 1272 */
-    width: 100%;
-    height: 300px;
-    background-color: #052052;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 2px 2px 20px #04193f;
 }
 
 /*
@@ -550,76 +523,6 @@ input::placeholder {
     align-content: space-between;
 }
 
-/*
-    Objects: List
-    ---
-    Small reusable object to remove default list styling from lists
-*/
-
-.o-list {
-    list-style: none;
-    padding: 0;
-}
-
-/*
-    Object: Button reset
-    ---
-    Small button reset object
-*/
-
-.o-button-reset {
-    border: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
-    overflow: visible;
-    background: transparent;
-
-    /* inherit font & color from ancestor */
-    color: inherit;
-    font: inherit;
-
-    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
-    line-height: normal;
-
-    /* Corrects font smoothing for webkit */
-    -webkit-font-smoothing: inherit;
-    -moz-osx-font-smoothing: inherit;
-
-    /* Corrects inability to style clickable `input` types in iOS */
-    -webkit-appearance: none;
-}
-
-/*
-    Object: Hide accessible
-    ---
-    Accessibly hide any element
-*/
-
-.o-hide-accessible {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-.o-grow { 
-    transition: all .3s ease-in-out; 
-}
-
-.o-grow:hover { 
-    transform: scale(0.8) rotate(90deg);
-}
-
-.o-grow:active{
-    transform: rotate(360deg);
-    transition-duration: 1s;
-}
-
 /*------------------------------------*\
 #COMPONENTS
 \*------------------------------------*/
@@ -665,15 +568,15 @@ input::placeholder {
     left: -32px; 
 }
 
+.c-add-asset{
+    margin: auto;
+}
+
 /*
     Component: Logo
     ---
     Website logo
 */
-
-.c-add-asset{
-    margin: auto;
-}
 
 .c-logo{
     vertical-align: middle;
@@ -702,70 +605,26 @@ input::placeholder {
     }
 }
 
-
-
-.c-logo_red{
-    box-shadow: 2px 2px 20px red;
-
-}
-
-.c-logo_green{
-    box-shadow: 2px 2px 20px green;
-}
-
-/*
-    Error
-    ---
-    Error codes
-*/
-
-.has-error {
-    --label-color: var(--global-color-error);
-    --input-borderColor: var(--global-input-error-borderColor);
-}
-
 /*
     Component: Card
     ---
     Card with box shadow
 */
 
-.c-card {
-    --card-backgroundColor: White;
-    --card__footer-borderColor: var(--global-color-neutral-xxx-light);
-    --card-borderRadius: var(--global-borderRadius);
-    background-color: var(--card-backgroundColor);
-    margin-bottom: var(--global-whitespace);
-    border-radius: var(--card-borderRadius);
-    box-shadow: 0 0 0 1px rgba(0,0,0, 0.05), 0 2px 4px rgba(0,0,0,.075);
-    overflow: hidden;
-}
-
 /* Add padding to child for more flexibility */
-.c-card__body,
-.c-card__footer {
-    padding: var(--global-whitespace) var(--global-whitespace) 0;
-    overflow: auto; /* Fix margin collapse */
-}
-
-.c-card__footer {   
-    text-align: center;
-    border-top: 1px solid var(--card__footer-borderColor);
-}
-
 .c-card__title {
     display: block;
     text-align:center;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: var(--global-whitespace);
     font-weight: 400;
 }
 
 .c-card__price {
     display: block;
-    color: #70E000;
+    color: var(--global-color-positive);
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: var(--global-whitespace);
     font-weight: 400;
 }
@@ -773,7 +632,7 @@ input::placeholder {
 .c-card__fullname {
     display: block;
     text-align: center;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: var(--global-whitespace);
     font-weight: 600;
     float: left; 
@@ -783,168 +642,21 @@ input::placeholder {
 
 .c-card__change{
     display: block;
-    color: #70E000;
+    color: var(--global-color-positive);
     text-align: center;
-    font-size: 16px;
-    line-height: 21px;
+    font-size: 1rem;
+    line-height: 1.313rem;
     font-weight: 400;
     margin: 0;
 }
 
 @media (min-width: 600px) {
-    .c-card__title {
-        text-align: left;
-    }
-    .c-card__price {
-        text-align: left;
-    }
-    .c-card__fullname {
-        text-align: left;
-    }
+    .c-card__title,
+    .c-card__price,
+    .c-card__fullname,
     .c-card__change{
         text-align: left;
     }
-}
-
-@media (min-width: 27em) {
-    .c-card__body {
-        padding: var(--global-whitespace-xl) var(--global-whitespace-xl) var(--global-whitespace);
-    }
-}
-
-
-.c-like__symbol{
-    width: 22px;
-    height: 22px;
-    fill: var(--global-color-neutral-x-light);
-    margin: -15px 0 0 0;
-}
-
-/*
-    Component: Input
-    ---
-    Class to put on all input="text" like form inputs
-*/
-
-.c-input {       
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 100%;
-    border: var(--global-borderWidth) solid var(--input-borderColor, var(--global-input-borderColor));
-    /* border: 1px solid var(--global-color-neutral-xxx-light); */
-    border-radius: var(--global-borderRadius);
-    background-color: var(--global-input-backgroundColor);
-    color: var(--global-input-color);
-    font-family: inherit;
-    font-size: 16px;
-    line-height: calc(var(--global-baseline) * 3);
-    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
-    outline: none;
-    transition: border var(--global-transition-timing-alpha), box-shadow var(--global-transition-timing-alpha);
-}
-
-.c-input:hover {
-    border-color: var(--global-input-hover-borderColor);
-}
-
-.c-input:focus,
-.c-input:active {
-    border-color: var(--global-input-focus-borderColor);
-    box-shadow: var(--global-input-focus-boxShadow);
-}
-
-/*
-Input password with toggle checkbox on top of it needs
-more padding on the right to avoid overlap
-*/
-
-.c-input--password-with-toggle {
-    padding-right: 52px;
-}
-
-/* option input for checkboxes and radio buttons */
-
-.c-option {
-    margin-right: var(--global-whitespace-sm);
-}
-
-/*
-    Component: Label
-    ---
-    Class to put on all form labels
-*/
-
-.c-label {
-    --label-color: var(--global-color-neutral-xx-dark);
-    margin-bottom: 0;
-    padding-bottom: var(--global-whitespace-sm);
-    font-size: 14px;
-    line-height: 16px;
-    color: var(--label-color, var(--global-color-neutral-xx-dark));
-}
-
-.c-label--option {
-    padding-bottom: 0;
-}
-
-/*
-    Component: Button
-    ---
-    Class to put on form buttons or
-*/
-
-.c-button {    
-    --button-borderColor: var(--global-color-alpha-dark);
-    --button-hover-borderColor: var(--global-color-alpha-dark);
-    --button-active-borderColor: var(--global-color-alpha-dark);
-    --button-focus-borderColor:var(--global-color-alpha-dark);
-    --button-backgroundColor: var(--global-color-alpha);
-    --button-hover-backgroundColor: var(--global-color-alpha-light);
-    --button-active-backgroundColor: var(--global-color-alpha-dark);
-    --button-focus-backgroundColor: var(--global-color-alpha);    
-    --button-focus-boxShadow: var(--global-input-focus-boxShadow);
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: var(--global-borderRadius);
-    border: 1px solid var(--button-borderColor);
-    background-color: var(--button-backgroundColor);
-    color: #fff;
-    line-height: calc(var(--global-baseline) * 3);
-    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
-    width: 100%;
-    outline: none;
-    box-shadow: var(--button-boxShadow, 0);
-    transition: all var(--global-transitionTiming-alpha) var(--global-transitionEasing-out);
-}
-
-.c-button:hover {
-    border-color: var(--button-hover-borderColor);
-    background-color: var(--button-hover-backgroundColor);
-}
-
-.c-button:focus {
-    background-color: var(--button-focus-backgroundColor);
-    border-color: var(--button-focus-borderColor);
-    box-shadow: var(--button-focus-boxShadow);
-}
-
-.c-button:active {
-    background-color: var(--button-active-backgroundColor);
-    border-color: var(--button-active-borderColor);
-    box-shadow: var(--button-active-boxShadow, 0);
-}
-
-/*
-    Component: Option list
-*/
-
-.c-option-list {
-    margin-bottom: var(--global-whitespace);
-}
-
-.c-option-list__item {
-    margin-bottom: calc(var(--global-whitespace) / 2);
 }
 
 /*------------------------------------*\
@@ -1046,7 +758,7 @@ more padding on the right to avoid overlap
 */
 
 .u-text-sm {
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 /*
